@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model Characters {
+  id          Int     @id @default(autoincrement())
+  name        String
+  level       Int
+  job         String
+  karman_h    Boolean
+  karman_n    Boolean
+  tower_h     Boolean
+  tower_n     Boolean
+  illiakan_h  Boolean
+  illiakan_n  Boolean
+  kayangel_h  Boolean
+  kayangel_n  Boolean
+  abrelshud_h Boolean
+  abrelshud_n Boolean
+  kouku_n     Boolean
+}
