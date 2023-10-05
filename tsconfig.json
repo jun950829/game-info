@@ -22,6 +22,9 @@
       "@/*": [
         "./public/*"
       ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
       "@/api/*": [
         "./src/pages/api/*"
       ]

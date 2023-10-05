@@ -27,3 +27,14 @@ model Characters {
   abrelshud_n Boolean
   kouku_n     Boolean
 }
+
+model Users {
+  id         Int    @id @default(autoincrement())
+  name       String
+  character1 String
+  character2 String
+  character3 String
+  character4 String
+  character5 String
+  character6 String
+}
