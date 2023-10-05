@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   basePath : "",
   distDir : '.next',
-  trailingSlash : true,
+  trailingSlash : false,
   useFileSystemPublicRoutes: true,
   swcMinify: true,
   compiler: {
