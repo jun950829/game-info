@@ -77,7 +77,7 @@ const CharacterList = (props: {
 
   return (
     <div>
-      내가왔다.
+      좀돼라
       {JSON.stringify(myList)}
     </div>
   );
