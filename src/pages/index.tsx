@@ -20,7 +20,7 @@ export default function Home() {
     queryKey: ["getUserData"],
     queryFn: async () => {
       const data = await axios
-        .get("/api/member")
+        .get("/api/member/")
         .then((response) => response.data)
         .catch((error) => {
           console.log(error);

@@ -36,7 +36,7 @@ const CharacterList = (props: {
     queryKey: ["getUserData", props.selectedName],
     queryFn: async () => {
       const data = await axios
-        .get(`/api/lostark/getinfo/${enCodedId}`)
+        .get(`/api/lostark/getinfo/${enCodedId}/`)
         .then((response) => response.data)
         .catch((error) => {
           console.log(error);
