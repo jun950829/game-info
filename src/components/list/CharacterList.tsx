@@ -45,6 +45,7 @@ const CharacterList = (props: {
       return data;
     },
     keepPreviousData: true,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const CharacterList = (props: {
       setMyList(result);
       setIsLoading(false);
     }
-  }, [isLoading]);
+  }, [CharacterData]);
 
   return (
     <div>

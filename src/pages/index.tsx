@@ -29,6 +29,7 @@ export default function Home() {
       return data;
     },
     keepPreviousData: true,
+    refetchOnWindowFocus: false
   });
 
   const setItems = (name: string, idx: number) => {
