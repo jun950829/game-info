@@ -3,6 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   basePath : "",
   distDir : '.next',
+  async rewrites(){
+    return [{ "source": "/:path*/", "destination": "/:path*" }]
+  },
   trailingSlash : false,
   useFileSystemPublicRoutes: true,
   swcMinify: true,
