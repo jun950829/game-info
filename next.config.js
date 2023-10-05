@@ -5,6 +5,9 @@ const nextConfig = {
   trailingSlash: false,
   useFileSystemPublicRoutes: true,
   swcMinify: true,
+  api: {
+    bodyParser: false,
+  },
   compiler: {
     styledComponents: true,
   },
