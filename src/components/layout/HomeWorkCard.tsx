@@ -26,9 +26,9 @@ const HomeWorkCard = (props: {
         <p>직업 : {HomeWorkUnitData.job}</p>
       </Top>
       <Bottom>
-        {raidsList.map((raidName: raidKeys, idx:number) => {
+        {raidsList.map((raidName: raidKeys, i:number) => {
           return (<>
-            <InputLine key={idx}>
+            <InputLine key={i}>
               <p>{raids[raidName]}</p>
               <input
                 type="checkbox"
