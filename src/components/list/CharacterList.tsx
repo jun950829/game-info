@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "styled-components";
+import HomeWorkCard from "../layout/HomeWorkCard";
 
 // type Character = {
 //   ServerName: string;
@@ -156,24 +157,25 @@ const CharacterList = (props: {
             //   <p>최고레벨 : {data.ItemMaxLevel}</p>
             //   <p>직업 : {data.CharacterClassName}</p>
             // </Card>
-            <Card key={idx}>
-              <p>아이디 : {data.name}</p>
-              <p>최고레벨 : {data.level}</p>
-              <p>직업 : {data.job}</p>
-              <p>
-                카멘하드 :
-                <input
-                  type="checkbox"
-                  id={"카멘하드"}
-                  checked={data.karman_h}
-                  onChange={(e) => {
-                    console.log(homeWorkList);
-                    changeHomeWorkList(idx, "karman_h");
-                    setCounter(counter + 1);
-                  }}
-                />
-              </p>
-            </Card>
+            // <Card key={idx}>
+            //   <p>아이디 : {data.name}</p>
+            //   <p>최고레벨 : {data.level}</p>
+            //   <p>직업 : {data.job}</p>
+            //   <p>
+            //     카멘하드 :
+            //     <input
+            //       type="checkbox"
+            //       id={"카멘하드"}
+            //       checked={data.karman_h}
+            //       onChange={(e) => {
+            //         console.log(homeWorkList);
+            //         changeHomeWorkList(idx, "karman_h");
+            //         setCounter(counter + 1);
+            //       }}
+            //     />
+            //   </p>
+            // </Card>
+            <HomeWorkCard HomeWorkUnitData={data} idx={idx} changeHomeWorkData={changeHomeWorkList} counter={counter} setCounter={setCounter} />
           );
         })
       ) : (
