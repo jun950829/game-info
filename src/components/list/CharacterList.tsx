@@ -151,30 +151,6 @@ const CharacterList = (props: {
       {myList.length > 0 ? (
         myList.map((data, idx) => {
           return (
-            // <Card key={idx}>
-            //   <p>서버 : {data.ServerName}</p>
-            //   <p>아이디 : {data.CharacterName}</p>
-            //   <p>최고레벨 : {data.ItemMaxLevel}</p>
-            //   <p>직업 : {data.CharacterClassName}</p>
-            // </Card>
-            // <Card key={idx}>
-            //   <p>아이디 : {data.name}</p>
-            //   <p>최고레벨 : {data.level}</p>
-            //   <p>직업 : {data.job}</p>
-            //   <p>
-            //     카멘하드 :
-            //     <input
-            //       type="checkbox"
-            //       id={"카멘하드"}
-            //       checked={data.karman_h}
-            //       onChange={(e) => {
-            //         console.log(homeWorkList);
-            //         changeHomeWorkList(idx, "karman_h");
-            //         setCounter(counter + 1);
-            //       }}
-            //     />
-            //   </p>
-            // </Card>
             <HomeWorkCard HomeWorkUnitData={data} idx={idx} changeHomeWorkData={changeHomeWorkList} counter={counter} setCounter={setCounter} />
           );
         })
@@ -188,6 +164,10 @@ const CharacterList = (props: {
 const ListLayer = styled.div`
   width: 75%;
   padding: 20px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
 `;
 
 const Card = styled.div`
