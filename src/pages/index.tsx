@@ -53,9 +53,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <h1>현재 선택된 이름 : {selectedName}</h1>
       <MainPage>
         <MemberList data={UserData} clickedFunc={setItems} />
-        <h1>현재 선택된 이름 : {selectedName}</h1>
 
         {selectedName !== "" ? (
           <CharacterList
@@ -73,4 +73,7 @@ export default function Home() {
 
 const MainPage = styled.section`
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;

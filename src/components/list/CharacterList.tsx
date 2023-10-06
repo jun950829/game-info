@@ -37,50 +37,63 @@ const CharacterList = (props: {
     queryFn: async () => {
       const data = await axios
         .get(`/api/lostark/getinfo/${enCodedId}`)
-        .then((response) => response.data)
+        .then((response) => {
+          if (response.data !== undefined || response.data.data != undefined) {
+            const result = response.data.data.reduce(
+              (prev: Character[], cur: Character) => {
+                if (six_picked_characters.includes(cur.CharacterName)) {
+                  prev = [...prev, cur];
+                }
+                return prev;
+              },
+              [] as Character[]
+            );
+            setMyList(result);
+            return response.data;
+          } else {
+            return response.data;
+          }
+        })
         .catch((error) => {
           console.log(error);
           throw error;
         });
+
       return data;
     },
     keepPreviousData: true,
     refetchOnWindowFocus: false,
   });
 
-  useEffect(() => {
-    setIsLoading(true);
-    console.log("qkRnla");
-  }, [props]);
-
-  useEffect(() => {
-    if (
-      isLoading === true &&
-      CharacterData.data !== undefined &&
-      CharacterData.data.data !== undefined
-    ) {
-      console.log(CharacterData.data.data);
-      console.log(six_picked_characters);
-      const result = CharacterData.data.data.reduce(
-        (prev: Character[], cur: Character) => {
-          if (six_picked_characters.includes(cur.CharacterName)) {
-            prev = [...prev, cur];
-          }
-          return prev;
-        },
-        [] as Character[]
-      );
-      setMyList(result);
-      setIsLoading(false);
-    }
-  }, [CharacterData]);
-
   return (
-    <div>
-      좀돼라
-      {JSON.stringify(myList)}
-    </div>
+    <ListLayer>
+      {myList.length > 0 ? (
+        myList.map((data, idx) => {
+          return (
+            <Card key={idx}>
+              <p>서버 : {data.ServerName}</p>
+              <p>아이디 : {data.CharacterName}</p>
+              <p>최고레벨 : {data.ItemMaxLevel}</p>
+              <p>직업 : {data.CharacterClassName}</p>
+            </Card>
+          );
+        })
+      ) : (
+        <>No Characters...</>
+      )}
+    </ListLayer>
   );
 };
+
+const ListLayer = styled.div`
+  width: 75%;
+  padding: 20px;
+`;
+
+const Card = styled.div`
+  border: 1px solid #000000;
+  padding: 20px;
+  border-radius: 4px;
+`;
 
 export default CharacterList;

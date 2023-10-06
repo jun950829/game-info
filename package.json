@@ -26,7 +26,6 @@
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
     "react-query": "^3.39.3",
-    "typescript": "^5",
-    "vercel": "^32.4.1"
+    "typescript": "^5"
   }
 }
