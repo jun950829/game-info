@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   distDir : '.next',
+  basePath: "",
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
   trailingSlash: false,
   useFileSystemPublicRoutes: true,
   swcMinify: true,

@@ -20,9 +20,6 @@ export default function Home() {
     queryKey: ["getUserData"],
     queryFn: async () => {
       const data = await axios
-        .create({
-          baseURL: "https://game-info-ikj8g6ym0-jun950829.vercel.app/",
-        })
         .get("/api/member")
         .then((response) => response.data)
         .catch((error) => {
