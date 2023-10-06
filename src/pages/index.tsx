@@ -21,6 +21,9 @@ export default function Home() {
     queryFn: async () => {
       try {
         const data = await axios
+          .create({
+            baseURL: process.env.BASE_URL,
+          })
           .get("/api/member")
           .then((response) => response.data)
           .catch((error) => {
