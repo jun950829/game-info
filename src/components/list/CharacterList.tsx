@@ -151,7 +151,7 @@ const CharacterList = (props: {
       {myList.length > 0 ? (
         myList.map((data, idx) => {
           return (
-            <HomeWorkCard HomeWorkUnitData={data} idx={idx} changeHomeWorkData={changeHomeWorkList} counter={counter} setCounter={setCounter} />
+            <HomeWorkCard key={idx} HomeWorkUnitData={data} idx={idx} changeHomeWorkData={changeHomeWorkList} counter={counter} setCounter={setCounter} />
           );
         })
       ) : (
