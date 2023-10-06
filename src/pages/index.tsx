@@ -19,14 +19,18 @@ export default function Home() {
   const UserData = useQuery({
     queryKey: ["getUserData"],
     queryFn: async () => {
-      const data = await axios
-        .get("/api/member")
-        .then((response) => response.data)
-        .catch((error) => {
-          console.log(error);
-          throw error;
-        });
-      return data;
+      try {
+        const data = await axios
+          .get("/api/member")
+          .then((response) => response.data)
+          .catch((error) => {
+            console.log(error);
+            throw error;
+          });
+        return data;
+      } catch (e) {
+        console.log(e);
+      }
     },
     keepPreviousData: true,
     refetchOnWindowFocus: false,
