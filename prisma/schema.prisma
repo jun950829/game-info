@@ -10,10 +10,25 @@ datasource db {
   url      = env("POSTGRES_URL")
 }
 
+model Users {
+  id         Int          @id @default(autoincrement())
+  name       String
+  character1 String
+  character2 String
+  character3 String
+  character4 String
+  character5 String
+  character6 String
+  characters Characters[]
+}
+
 model Characters {
   id          Int     @id @default(autoincrement())
   name        String
-  level       Int
+  whose       String
+  users       Users   @relation(fields: [uuid], references: [id])
+  uuid        Int
+  level       String
   job         String
   karman_h    Boolean
   karman_n    Boolean
@@ -26,15 +41,4 @@ model Characters {
   abrelshud_h Boolean
   abrelshud_n Boolean
   kouku_n     Boolean
-}
-
-model Users {
-  id         Int    @id @default(autoincrement())
-  name       String
-  character1 String
-  character2 String
-  character3 String
-  character4 String
-  character5 String
-  character6 String
 }
