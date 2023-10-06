@@ -20,6 +20,9 @@ export default function Home() {
     queryKey: ["getUserData"],
     queryFn: async () => {
       const data = await axios
+        .create({
+          baseURL: "https://game-info-ikj8g6ym0-jun950829.vercel.app/",
+        })
         .get("/api/member")
         .then((response) => response.data)
         .catch((error) => {
@@ -29,7 +32,7 @@ export default function Home() {
       return data;
     },
     keepPreviousData: true,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   });
 
   const setItems = (name: string, idx: number) => {

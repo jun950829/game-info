@@ -36,6 +36,9 @@ const CharacterList = (props: {
     queryKey: ["getUserData", props.selectedName],
     queryFn: async () => {
       const data = await axios
+        .create({
+          baseURL: "https://game-info-ikj8g6ym0-jun950829.vercel.app/",
+        })
         .get(`/api/lostark/getinfo/${enCodedId}`)
         .then((response) => response.data)
         .catch((error) => {
