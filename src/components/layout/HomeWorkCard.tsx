@@ -1,15 +1,14 @@
 import styled from "styled-components";
-import { raids } from "src/constants/raids";
+import { raids, raidsLevel } from "src/constants/raids";
 import { raidKeys } from "src/types/types";
 
 const HomeWorkCard = (props: {
-  HomeWorkUnitData: any
-  idx: number
-  changeHomeWorkData: Function
-  counter: number
-  setCounter: Function
+  HomeWorkUnitData: any;
+  idx: number;
+  changeHomeWorkData: Function;
+  counter: number;
+  setCounter: Function;
 }) => {
-
   const HomeWorkUnitData = props.HomeWorkUnitData;
   const idx = props.idx;
   const changeHomeWorkData = props.changeHomeWorkData;
@@ -26,27 +25,39 @@ const HomeWorkCard = (props: {
         <p>직업 : {HomeWorkUnitData.job}</p>
       </Top>
       <Bottom>
-        {raidsList.map((raidName: raidKeys, i:number) => {
-          return (<>
-            <InputLine key={i}>
-              <p>{raids[raidName]}</p>
-              <input
-                type="checkbox"
-                id={raids[raidName]}
-                checked={HomeWorkUnitData[raidName]}
-                onChange={(e) => {
-                  changeHomeWorkData(idx, raidName);
-                  setCounter(counter + 1);
-                }}
-              />
-            </InputLine>
-          </>
-          )
+        {raidsList.map((raidName: raidKeys, i: number) => {
+          return (
+            <>
+              {checkLevel(
+                raidName,
+                Number(HomeWorkUnitData.level.replaceAll(",", ""))
+              ) ? (
+                <InputLine key={i}>
+                  <p>{raids[raidName]}</p>
+                  <input
+                    type="checkbox"
+                    id={raids[raidName]}
+                    checked={HomeWorkUnitData[raidName]}
+                    onChange={(e) => {
+                      changeHomeWorkData(idx, raidName);
+                      setCounter(counter + 1);
+                    }}
+                  />
+                </InputLine>
+              ) : (
+                <></>
+              )}
+            </>
+          );
         })}
       </Bottom>
     </Card>
-  )
-}
+  );
+};
+
+const checkLevel = (raidName: raidKeys, level: number) => {
+  if (level >= raidsLevel[raidName]) return true;
+};
 
 export default HomeWorkCard;
 
@@ -62,24 +73,24 @@ const Card = styled.div`
 `;
 
 const Top = styled.div`
-    width: 100%;
-    border-bottom: 1px solid #cccccc;
+  width: 100%;
+  border-bottom: 1px solid #cccccc;
 
-    p {
-      margin: 2px;
-    }
+  p {
+    margin: 2px;
+  }
 `;
 
 const Bottom = styled.div`
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `;
 
 const InputLine = styled.div`
-    width: 150px;
-    margin: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  width: 150px;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;

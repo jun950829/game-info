@@ -72,38 +72,6 @@ const CharacterList = (props: {
   const changeHomeWorkList = (idx: number, key: Keys) => {
     homeWorkList[idx][key] = !homeWorkList[idx][key];
   };
-  // const CharacterData = useQuery({
-  //   queryKey: ["getUserData", props.selectedName],
-  //   queryFn: async () => {
-  //     const data = await axios
-  //       .get(`/api/lostark/getinfo/${enCodedId}`)
-  //       .then((response) => {
-  //         if (response.data !== undefined || response.data.data != undefined) {
-  //           const result = response.data.data.reduce(
-  //             (prev: Character[], cur: Character) => {
-  //               if (six_picked_characters.includes(cur.CharacterName)) {
-  //                 prev = [...prev, cur];
-  //               }
-  //               return prev;
-  //             },
-  //             [] as Character[]
-  //           );
-  //           setMyList(result);
-  //           return response.data;
-  //         } else {
-  //           return response.data;
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //         throw error;
-  //       });
-
-  //     return data;
-  //   },
-  //   keepPreviousData: true,
-  //   refetchOnWindowFocus: false,
-  // });
 
   const CharacterData = useQuery({
     queryKey: ["getUserData", props.selectedName],
@@ -111,23 +79,9 @@ const CharacterList = (props: {
       const data = await axios
         .get(`/api/lostark/gethomeworks`)
         .then((response) => {
-          if (false) {
-            // const result = response.data.data.reduce(
-            //   (prev: Character[], cur: Character) => {
-            //     if (six_picked_characters.includes(cur.CharacterName)) {
-            //       prev = [...prev, cur];
-            //     }
-            //     return prev;
-            //   },
-            //   [] as Character[]
-            // );
-            // setMyList(result);
-            // return response.data;
-          } else {
-            setMyList(response.data.data);
-            homeWorkList = response.data.data;
-            return response.data;
-          }
+          setMyList(response.data.data);
+          homeWorkList = response.data.data;
+          return response.data;
         })
         .catch((error) => {
           console.log(error);
@@ -151,7 +105,14 @@ const CharacterList = (props: {
       {myList.length > 0 ? (
         myList.map((data, idx) => {
           return (
-            <HomeWorkCard key={idx} HomeWorkUnitData={data} idx={idx} changeHomeWorkData={changeHomeWorkList} counter={counter} setCounter={setCounter} />
+            <HomeWorkCard
+              key={idx}
+              HomeWorkUnitData={data}
+              idx={idx}
+              changeHomeWorkData={changeHomeWorkList}
+              counter={counter}
+              setCounter={setCounter}
+            />
           );
         })
       ) : (
@@ -168,12 +129,6 @@ const ListLayer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
-`;
-
-const Card = styled.div`
-  border: 1px solid #000000;
-  padding: 20px;
-  border-radius: 4px;
 `;
 
 export default CharacterList;

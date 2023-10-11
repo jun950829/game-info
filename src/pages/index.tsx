@@ -13,11 +13,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   //현재 선택된 Id
+  const [refresh, setRefresh] = useState<boolean>(false);
   const [selectedName, setSelectedName] = useState<string>("");
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
 
   const UserData = useQuery({
-    queryKey: ["getUserData"],
+    queryKey: ["getUserData", refresh],
     queryFn: async () => {
       try {
         const data = await axios
@@ -55,7 +56,16 @@ export default function Home() {
       </Head>
       <h1>현재 선택된 이름 : {selectedName}</h1>
       <MainPage>
-        <MemberList data={UserData} clickedFunc={setItems} />
+        <Left>
+          <MemberList data={UserData} clickedFunc={setItems} />
+          <UpdateButton
+            onClick={() => {
+              setRefresh(!refresh);
+            }}
+          >
+            새로고침
+          </UpdateButton>
+        </Left>
 
         {selectedName !== "" ? (
           <CharacterList
@@ -76,4 +86,24 @@ const MainPage = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const Left = styled.div`
+  width: 20%;
+  height: 100%;
+  padding: 0 10px;
+  border-right: 1px solid #cccccc;
+`;
+
+const UpdateButton = styled.button`
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 20px;
+  font-size: 18px;
+  background-color: #1d94f5;
+  color: #ffffff;
+  border-radius: 4px;
+
+  cursor: pointer;
 `;
