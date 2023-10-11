@@ -21,7 +21,11 @@ export default async function handler(
 ) {
   const prisma = new PrismaClient();
 
-  const homeWorkList = await prisma.characters.findMany();
+  const homeWorkList = await prisma.characters.findMany({
+    orderBy: {
+      level: "desc",
+    },
+  });
 
   try {
     if (homeWorkList.length > 0) {
