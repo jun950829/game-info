@@ -66,16 +66,17 @@ export default function Home() {
             새로고침
           </UpdateButton>
         </Left>
-
-        {selectedName !== "" ? (
-          <CharacterList
-            UserData={UserData}
-            selectedName={selectedName}
-            selectedIdx={selectedIdx}
-          ></CharacterList>
-        ) : (
-          <></>
-        )}
+        <Right>
+          {selectedName !== "" ? (
+            <CharacterList
+              UserData={UserData}
+              selectedName={selectedName}
+              selectedIdx={selectedIdx}
+            ></CharacterList>
+          ) : (
+            <></>
+          )}
+        </Right>
       </MainPage>
     </>
   );
@@ -85,14 +86,21 @@ const MainPage = styled.section`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  gap: 10px;
 `;
 
 const Left = styled.div`
   width: 20%;
   height: 100%;
-  padding: 0 10px;
-  border-right: 1px solid #cccccc;
+  min-width: 200px;
+  /* border-right: 1px solid #cccccc; */
+`;
+
+const Right = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 const UpdateButton = styled.button`

@@ -101,34 +101,55 @@ const CharacterList = (props: {
   }, [counter]);
 
   return (
-    <ListLayer>
-      {myList.length > 0 ? (
-        myList.map((data, idx) => {
-          return (
-            <HomeWorkCard
-              key={idx}
-              HomeWorkUnitData={data}
-              idx={idx}
-              changeHomeWorkData={changeHomeWorkList}
-              counter={counter}
-              setCounter={setCounter}
-            />
-          );
-        })
-      ) : (
-        <>No Characters...</>
-      )}
-    </ListLayer>
+    <Layer>
+      <ListLayer>
+        {myList.length > 0 ? (
+          myList.map((data, idx) => {
+            return (
+              <HomeWorkCard
+                key={idx}
+                HomeWorkUnitData={data}
+                idx={idx}
+                changeHomeWorkData={changeHomeWorkList}
+                counter={counter}
+                setCounter={setCounter}
+              />
+            );
+          })
+        ) : (
+          <>No Characters...</>
+        )}
+      </ListLayer>
+      {myList.length > 0 ? <SaveButton>저장</SaveButton> : <></>}
+    </Layer>
   );
 };
 
+const Layer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+`;
+
 const ListLayer = styled.div`
-  width: 75%;
-  padding: 20px;
+  width: 100%;
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
+`;
+
+const SaveButton = styled.button`
+  width: 20%;
+  height: 40px;
+  line-height: 40px;
+  margin-top: 20px;
+  font-size: 18px;
+  background-color: #1d94f5;
+  color: #ffffff;
+  border-radius: 4px;
+
+  cursor: pointer;
 `;
 
 export default CharacterList;
