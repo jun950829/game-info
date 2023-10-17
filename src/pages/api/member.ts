@@ -27,6 +27,7 @@ export default async function handler(
       },
     });
     // console.log("member 요청들어옴 : ", UserData);
+    // 좀 돼라
     if (UserData.length > 0) {
       res.status(200).json({
         message: "success",

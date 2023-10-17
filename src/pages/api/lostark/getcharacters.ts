@@ -45,7 +45,7 @@ export default async function handler(
       }
       return prev;
     }, [] as CharacterList);
-    console.log(characters);
+    // console.log(characters);
 
     res.status(200).json({
       data: myList,
