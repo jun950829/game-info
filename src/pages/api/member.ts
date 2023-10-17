@@ -19,14 +19,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Result>
 ) {
-  const prisma = new PrismaClient();
-  const UserData = await prisma.users.findMany({
-    orderBy: {
-      id: "asc",
-    },
-  });
-  // console.log("member 요청들어옴 : ", UserData);
   try {
+    const prisma = new PrismaClient();
+    const UserData = await prisma.users.findMany({
+      orderBy: {
+        id: "asc",
+      },
+    });
+    // console.log("member 요청들어옴 : ", UserData);
     if (UserData.length > 0) {
       res.status(200).json({
         message: "success",

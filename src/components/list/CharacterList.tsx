@@ -63,7 +63,6 @@ const CharacterList = (props: {
     selectedUser.character5,
     selectedUser.character6,
   ];
-  const enCodedId = encodeURIComponent(selectedUser.character1);
 
   const [myList, setMyList] = useState<Character[]>([]);
   const [counter, setCounter] = useState<number>(0);
@@ -95,7 +94,7 @@ const CharacterList = (props: {
   });
 
   useEffect(() => {
-    console.log("mylist update");
+    console.log("mylist update : ", homeWorkList);
 
     setMyList(homeWorkList);
   }, [counter]);
@@ -103,7 +102,7 @@ const CharacterList = (props: {
   return (
     <Layer>
       <ListLayer>
-        {myList.length > 0 ? (
+        {isLoading === false && myList.length > 0 ? (
           myList.map((data, idx) => {
             return (
               <HomeWorkCard
@@ -117,10 +116,38 @@ const CharacterList = (props: {
             );
           })
         ) : (
-          <>No Characters...</>
+          <>Loading Characters...</>
         )}
       </ListLayer>
-      {myList.length > 0 ? <SaveButton>저장</SaveButton> : <></>}
+      {myList.length > 0 ? (
+        <LevelButton
+          onClick={async () => {
+            setIsLoading(true);
+            await axios
+              .create({
+                baseURL: process.env.BASE_URL,
+              })
+              .post(`/api/lostark/setlevels`, {
+                myList: myList,
+              })
+              .then((response) => {
+                setMyList(response.data.data);
+                homeWorkList = response.data.data;
+                setIsLoading(false);
+              })
+              .catch((error) => {
+                alert(error);
+                console.log(error);
+                setIsLoading(false);
+                throw error;
+              });
+          }}
+        >
+          레벨 최신화
+        </LevelButton>
+      ) : (
+        <></>
+      )}
     </Layer>
   );
 };
@@ -139,7 +166,7 @@ const ListLayer = styled.div`
   gap: 10px;
 `;
 
-const SaveButton = styled.button`
+const LevelButton = styled.button`
   width: 20%;
   height: 40px;
   line-height: 40px;

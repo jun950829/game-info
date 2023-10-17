@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import { raids, raidsLevel } from "src/constants/raids";
 import { raidKeys } from "src/types/types";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "react-query";
+import axios from "axios";
 
 const HomeWorkCard = (props: {
   HomeWorkUnitData: any;
@@ -16,6 +23,47 @@ const HomeWorkCard = (props: {
   const setCounter = props.setCounter;
 
   const raidsList = Object.keys(raids) as raidKeys[];
+  const queryClient = useQueryClient();
+
+  const { mutate: updateMutation } = useMutation(
+    (UnitData: any) =>
+      axios
+        .create({
+          baseURL: process.env.BASE_URL,
+        })
+        .post("/api/lostark/updatehomeworks", {
+          id: UnitData.id,
+          karman_h: UnitData["karman_h"],
+          karman_n: UnitData["karman_n"],
+          tower_h: UnitData["tower_h"],
+          tower_n: UnitData["tower_n"],
+          illiakan_h: UnitData["illiakan_h"],
+          illiakan_n: UnitData["illiakan_n"],
+          kayangel_h: UnitData["kayangel_h"],
+          kayangel_n: UnitData["kayangel_n"],
+          abrelshud_h: UnitData["abrelshud_h"],
+          abrelshud_n: UnitData["abrelshud_n"],
+          kouku_n: UnitData["kouku_n"],
+        })
+        .then((response) => {
+          response.data;
+        })
+        .catch((error) => {
+          // console.log(error);
+          throw error;
+        }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("reservationListData");
+      },
+      onError: (error) => {
+        console.log("updateMutation error", error);
+        queryClient.invalidateQueries("reservationListData");
+      },
+    }
+  );
+
+  const setHomeWorkData = () => {};
 
   return (
     <Card>
@@ -26,29 +74,29 @@ const HomeWorkCard = (props: {
       </Top>
       <Bottom>
         {raidsList.map((raidName: raidKeys, i: number) => {
-          return (
-            <>
-              {checkLevel(
-                raidName,
-                Number(HomeWorkUnitData.level.replaceAll(",", ""))
-              ) ? (
-                <InputLine key={i}>
-                  <p>{raids[raidName]}</p>
-                  <input
-                    type="checkbox"
-                    id={raids[raidName]}
-                    checked={HomeWorkUnitData[raidName]}
-                    onChange={(e) => {
-                      changeHomeWorkData(idx, raidName);
-                      setCounter(counter + 1);
-                    }}
-                  />
-                </InputLine>
-              ) : (
-                <></>
-              )}
-            </>
-          );
+          if (
+            checkLevel(
+              raidName,
+              Number(HomeWorkUnitData.level.replaceAll(",", ""))
+            )
+          ) {
+            return (
+              <InputLine key={i}>
+                <p>{raids[raidName]}</p>
+                <input
+                  type="checkbox"
+                  id={raids[raidName]}
+                  checked={HomeWorkUnitData[raidName]}
+                  onChange={async (e) => {
+                    changeHomeWorkData(idx, raidName);
+                    setCounter(counter + 1);
+
+                    await updateMutation(HomeWorkUnitData);
+                  }}
+                />
+              </InputLine>
+            );
+          }
         })}
       </Bottom>
     </Card>

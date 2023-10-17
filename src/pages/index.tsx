@@ -40,6 +40,7 @@ export default function Home() {
     refetchOnWindowFocus: false,
   });
 
+  // 사람 이름 별 조회
   const setItems = (name: string, idx: number) => {
     setSelectedName(name);
     setSelectedIdx(idx);
