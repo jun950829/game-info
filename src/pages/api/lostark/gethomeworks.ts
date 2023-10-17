@@ -20,8 +20,12 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const prisma = new PrismaClient();
+  const body = req.body;
 
   const homeWorkList = await prisma.characters.findMany({
+    where: {
+      whose: body.name,
+    },
     orderBy: {
       level: "desc",
     },

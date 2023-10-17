@@ -75,15 +75,18 @@ const CharacterList = (props: {
   const CharacterData = useQuery({
     queryKey: ["getUserData", props.selectedName],
     queryFn: async () => {
+      setIsLoading(true);
       const data = await axios
-        .get(`/api/lostark/gethomeworks`)
+        .post(`/api/lostark/gethomeworks`, { name: props.selectedName })
         .then((response) => {
           setMyList(response.data.data);
           homeWorkList = response.data.data;
+          setIsLoading(false);
           return response.data;
         })
         .catch((error) => {
           console.log(error);
+          setIsLoading(false);
           throw error;
         });
 
@@ -128,6 +131,7 @@ const CharacterList = (props: {
                 baseURL: process.env.BASE_URL,
               })
               .post(`/api/lostark/setlevels`, {
+                name: props.selectedName,
                 myList: myList,
               })
               .then((response) => {

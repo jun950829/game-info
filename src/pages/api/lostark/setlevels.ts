@@ -57,6 +57,9 @@ export default async function handler(
     });
 
     const homeWorkList = await prisma.characters.findMany({
+      where: {
+        whose: body.name,
+      },
       orderBy: {
         level: "desc",
       },
