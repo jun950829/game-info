@@ -36,13 +36,12 @@ export default async function handler(
       const pickedCharacter = characters.filter(
         (x) => x.CharacterName === character.name
       );
-      console.log(pickedCharacter);
       if (pickedCharacter.length > 0) {
         if (
           Number(pickedCharacter[0].ItemMaxLevel.replaceAll(",", "")) !==
           Number(character.level)
         ) {
-          console.log("현재 캐릭터 : ", pickedCharacter[0]);
+          // console.log("현재 캐릭터 : ", pickedCharacter[0]);
           await prisma.characters.update({
             where: {
               id: character.id,

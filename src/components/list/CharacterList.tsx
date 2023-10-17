@@ -94,7 +94,7 @@ const CharacterList = (props: {
   });
 
   useEffect(() => {
-    console.log("mylist update : ", homeWorkList);
+    // console.log("mylist update : ", homeWorkList);
 
     setMyList(homeWorkList);
   }, [counter]);

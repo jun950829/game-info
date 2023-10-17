@@ -25,7 +25,7 @@ export default async function handler(
 
   const prisma = new PrismaClient();
 
-  console.log(id);
+  // console.log(id);
 
   let url = `https://developer-lostark.game.onstove.com/characters/${id}/siblings`;
   let result = await fetch(url, {
